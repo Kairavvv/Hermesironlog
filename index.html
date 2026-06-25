@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronLog | Forge Your Legacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #161616;
+            --surface-bright: #222;
+            --accent: #e2ff33;
+            --accent-muted: rgba(226, 255, 51, 0.1);
+            --text: #efefef;
+            --text-muted: #a1a1a1;
+            --border: #2a2a2a;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 6rem 0; }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            background: rgba(10, 10, 10, 0.7);
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            text-decoration: none;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+
+        .btn-cta {
+            background: var(--accent);
+            color: #000;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, filter 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-cta:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 10rem;
+            padding-bottom: 8rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--accent-muted) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -3px;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+        .hero h1 span { color: var(--accent); }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+        .hero-btns { display: flex; gap: 1rem; }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .feature-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .feature-card i { color: var(--accent); margin-bottom: 1.5rem; display: block; }
+        .feature-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .feature-card p { color: var(--text-muted); font-size: 1rem; }
+
+        .preview-section {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .log-window {
+            background: #000;
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            border: 1px solid #333;
+        }
+        .log-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #1a1a1a;
+            color: #888;
+        }
+        .log-entry span.val { color: var(--accent); }
+
+        footer { padding: 4rem 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">IRON<span>LOG</span></a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#preview">How it Works</a>
+                <a href="#" class="btn-cta">Download Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero container fade-in">
+        <h1>Stop Guessing. <br><span>Start Logging.</span></h1>
+        <p>The precision workout tracker for those who treat the gym like a lab. Track every rep, every set, every gram of progress.</p>
+        <div class="hero-btns">
+            <button class="btn-cta" style="padding: 1rem 2rem; font-size: 1.1rem;">Get Started Free</button>
+            <button class="btn-cta" style="background: transparent; color: white; border: 1px solid var(--border); padding: 1rem 2rem; font-size: 1.1rem;">View Demo</button>
+        </div>
+    </section>
+
+    <section id="features" class="container">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Built for the <span>Obsessed</span></h2>
+            <p style="color: var(--text-muted);">No social fluff. No distractions. Just pure data.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i data-lucide="activity"></i>
+                <h3>Progression Tracking</h3>
+                <p>Automated 1RM calculations and volume charts that show exactly how you're growing.</p>
+            </div>
+            <div class="feature-card">
+                <i data-lucide="zap"></i>
+                <h3>Lightning Fast Entry</h3>
+                <p>Log sets in two taps. We know you're resting, not typing a novel.</p>
+            </div>
+            <div class="feature-card">
+                <i data-lucide="database"></i>
+                <h3>Infinite Archive</h3>
+                <p>Every workout you've ever done, stored securely in a clean, searchable history.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="preview" class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Pure Data. <span>Zero Noise.</span></h2>
+            <p style="color: var(--text-muted);">A glimpse into your new training log.</p>
+        </div>
+        <div class="preview-section fade-in">
+            <div class="log-window" id="log-display">
+                <div class="log-entry"><span>Session: Push A</span> <span class="val">14:02</span></div>
+                <div class="log-entry"><span>Bench Press: Set 1</span> <span class="val">225 lbs x 5</span></div>
+                <div class="log-entry"><span>Bench Press: Set 2</span> <span class="val">225 lbs x 4</span></div>
+                <div class="log-entry"><span>Overhead Press: Set 1</span> <span class="val">135 lbs x 8</span></div>
+            </div>
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
+                <button onclick="addLogEntry()" class="btn-cta" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Simulate New Set</button>
+                <button onclick="clearLog()" class="btn-cta" style="background: #333; color: #ccc; padding: 0.5rem 1rem; font-size: 0.8rem;">Clear Log</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 IronLog. Built for those who move weight.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const exercises = ['Squats', 'Deadlifts', 'Bicep Curls', 'Dips', 'Pullups', 'Incline Press'];
+        const weights = ['135', '185', '225', '315', '405'];
+        function addLogEntry() {
+            const log = document.getElementById('log-display');
+            const ex = exercises[Math.floor(Math.random() * exercises.length)];
+            const wt = weights[Math.floor(Math.random() * weights.length)];
+            const reps = Math.floor(Math.random() * 12) + 1;
+            const div = document.createElement('div');
+            div.className = 'log-entry';
+            div.innerHTML = `<span>${ex}: Set ${Math.floor(Math.random()*5)+1}</span> <span class="val">${wt} lbs x ${reps}</span>`;
+            log.appendChild(div);
+            if (log.children.length > 6) log.removeChild(log.children[0]);
+        }
+        function clearLog() {
+            document.getElementById('log-display').innerHTML = '<div class="log-entry"><span>Log Cleared. Ready for next set.</span> <span class="val">---</span></div>';
+        }
+    </script>
+</body>
+</html>
